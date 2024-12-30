@@ -250,8 +250,8 @@ const authController = {
           let findAddressRes = await addressModel.findAddress({
             address: item.address,
           });
-          console.log("rcCode111", findAddressRes.address_code, findAddressRes);
-          if (!findAddressRes.address_code) {
+          console.log("rcCode111", findAddressRes?.address_code, findAddressRes);
+          if (!findAddressRes?.address_code) {
             // 가장 높은 address_code 가져오기
             const highestCode = await userModel.getHighestAddressCode();
             const newCodeNumber = highestCode ? parseInt(highestCode.replace("RC", ""), 10) + 1 : 1; // 기본값 1
@@ -262,7 +262,7 @@ const authController = {
             // 주소 생성
             const createAddressRes = await addressModel.createAddress({
               address: item.address,
-              address_code: findAddressRes.address_code,
+              address_code: findAddressRes?.address_code || rcCode,
               region_1depth_name: item.region_1depth_name,
               region_2depth_name: item.region_2depth_name,
               region_3depth_name: item.region_3depth_name,
